@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  database:
+    container_name: database
+    image: mysql:latest@sha256:516b92a7ccf2340c1a696a7ad2de1784393d0876d042cc4913bc33fb3f455a75
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./.docker/mysql:/var/lib/mysql/"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: database_cli
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - app_network
+
+  php:
+    container_name: php
+    build: ./.docker/php
+    entrypoint: ./docker-entrypoint.sh
+    tty: true
+    ports:
+      - "9000:9000"
+    volumes:
+      - "./:/var/www"
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
