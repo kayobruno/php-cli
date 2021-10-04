@@ -14,6 +14,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class BaseUserCommand extends Command
 {
     protected UserService $userService;
+    protected array $requiredFields = [];
 
     public function __construct(UserService $userService)
     {
@@ -29,6 +30,19 @@ class BaseUserCommand extends Command
             if (!$input->getArgument($argument->getName())) {
                 $value = $io->ask($argument->getDescription());
                 $input->setArgument($argument->getName(), $value);
+            }
+        }
+    }
+
+    /**
+     * @throws \Exception
+     */
+    protected function validateRequiredFields(InputInterface $input)
+    {
+        $input->getArguments();
+        foreach ($this->requiredFields as $field) {
+            if (empty($input->getArgument($field))) {
+                throw new \Exception("The field {$field} is required");
             }
         }
     }

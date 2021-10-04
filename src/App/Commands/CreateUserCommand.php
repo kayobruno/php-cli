@@ -13,6 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class CreateUserCommand extends BaseUserCommand
 {
     protected static string $defaultName = 'USER:CREATE';
+    protected array $requiredFields = ['name', 'lastName', 'email'];
 
     protected function configure(): void
     {
@@ -35,9 +36,7 @@ final class CreateUserCommand extends BaseUserCommand
         $email = $input->getArgument('email');
         $age = $input->getArgument('age') ?? null;
 
-        if (!isset($name, $lastName, $email)) {
-            throw new \Exception('All fields with "(*)" are required, please inform them.');
-        }
+        $this->validateRequiredFields($input);
 
         $userDTO = new UserDTO($name, $lastName, $email, $age);
         $this->userService->createUser($userDTO);

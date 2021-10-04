@@ -11,4 +11,6 @@ interface Persistence
     public function persist(UserDTO $userDTO);
 
     public function retrieve(string $field, mixed $value);
+
+    public function update(int $id, array $data);
 }

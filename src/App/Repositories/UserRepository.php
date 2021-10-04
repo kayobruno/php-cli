@@ -19,8 +19,18 @@ class UserRepository
         $this->persistence->persist($userDTO);
     }
 
-    public function findByEmail(string $email)
+    public function updatePassword(int $id, string $password): void
+    {
+        $this->persistence->update($id, ['password' => $password]);
+    }
+
+    public function findByEmail(string $email): mixed
     {
         return $this->persistence->retrieve('email', $email);
+    }
+
+    public function findById(int $id): mixed
+    {
+        return $this->persistence->retrieve('id', $id);
     }
 }

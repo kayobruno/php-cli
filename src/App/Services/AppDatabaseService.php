@@ -35,4 +35,19 @@ SQL;
         $stmt = $this->getConnection()->query($sql);
         return $stmt->fetch();
     }
+
+    public function update(int $id, array $data): void
+    {
+        $now = (new \DateTime())->format('Y-m-d H:i:s');
+        $data = array_merge($data, ['updated_at' => $now]);
+        $fields = implode('=?, ', array_keys($data));
+
+        $sql = <<<SQL
+    UPDATE users SET {$fields}=? WHERE `id`=?
+SQL;
+
+        $data = array_merge($data, ['id' => $id]);
+        $stmt= $this->getConnection()->prepare($sql);
+        $stmt->execute(array_values($data));
+    }
 }
