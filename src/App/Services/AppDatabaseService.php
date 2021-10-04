@@ -9,7 +9,7 @@ use ASPTest\App\Models\UserDTO;
 
 final class AppDatabaseService extends BaseDatabaseService implements Persistence
 {
-    public function persist(UserDTO $userDTO): void
+    public function persist(UserDTO $userDTO): int
     {
         $fields = ['name', 'last_name', 'email', 'age', 'password', 'created_at', 'updated_at'];
         $parameters = $this->getQuestionMarkParameters($fields);
@@ -24,6 +24,8 @@ SQL;
         $stmt->execute([
             $userDTO->name, $userDTO->lastName, $userDTO->email, $userDTO->age, null, $now, $now
         ]);
+
+        return (int) $this->getConnection()->lastInsertId();
     }
 
     public function retrieve(string $field, mixed $value): array|bool

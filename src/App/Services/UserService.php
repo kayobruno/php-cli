@@ -23,10 +23,10 @@ final class UserService
     /**
      * @throws \Exception
      */
-    public function createUser(UserDTO $userDTO): void
+    public function createUser(UserDTO $userDTO): int
     {
         $this->validateParams($userDTO);
-        $this->saveUser($userDTO);
+        return $this->saveUser($userDTO);
     }
 
     /**
@@ -69,14 +69,14 @@ final class UserService
     /**
      * @throws \Exception
      */
-    private function saveUser(UserDTO $userDTO)
+    private function saveUser(UserDTO $userDTO): int
     {
         $hasUser = $this->userRepository->findByEmail($userDTO->email);
         if (false !== $hasUser && null !== $hasUser) {
             throw new \Exception('User already exists in database!');
         }
 
-        $this->userRepository->save($userDTO);
+        return $this->userRepository->save($userDTO);
     }
 
     /**

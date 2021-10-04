@@ -14,9 +14,9 @@ class UserRepository
     )
     {}
 
-    public function save(UserDTO $userDTO): void
+    public function save(UserDTO $userDTO): int
     {
-        $this->persistence->persist($userDTO);
+        return $this->persistence->persist($userDTO);
     }
 
     public function updatePassword(int $id, string $password): void

@@ -10,7 +10,8 @@ final class UserDTO
         public string $name,
         public string $lastName,
         public string $email,
-        public mixed $age
+        public mixed $age,
+        public ?int $id = null,
     )
     {}
 }

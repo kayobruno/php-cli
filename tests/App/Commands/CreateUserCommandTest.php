@@ -39,6 +39,7 @@ final class CreateUserCommandTest extends TestCase
         ];
 
         $this->commandTester->execute($input);
+        $input['id'] = 0;
 
         $this->assertEquals(json_encode($input), trim($this->commandTester->getDisplay()));
     }

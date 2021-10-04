@@ -39,7 +39,9 @@ final class CreateUserCommand extends BaseUserCommand
         $this->validateRequiredFields($input);
 
         $userDTO = new UserDTO($name, $lastName, $email, $age);
-        $this->userService->createUser($userDTO);
+        $id = $this->userService->createUser($userDTO);
+        $userDTO->id = $id;
+
         $output->writeln(json_encode($userDTO));
 
         return Command::SUCCESS;
