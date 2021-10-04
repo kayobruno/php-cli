@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class BaseUserCommand extends Command
+abstract class BaseUserCommand extends Command
 {
     protected UserService $userService;
     protected array $requiredFields = [];

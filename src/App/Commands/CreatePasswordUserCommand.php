@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class CreatePasswordUserCommand extends BaseUserCommand
 {
-    protected static string $defaultName = 'USER:CREATE-PWD';
+    protected static $defaultName = 'USER:CREATE-PWD';
     protected array $requiredFields = ['id', 'password', 'passwordConfirmation'];
 
     protected function configure(): void

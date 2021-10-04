@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class CreateUserCommand extends BaseUserCommand
 {
-    protected static string $defaultName = 'USER:CREATE';
+    protected static $defaultName = 'USER:CREATE';
     protected array $requiredFields = ['name', 'lastName', 'email'];
 
     protected function configure(): void
